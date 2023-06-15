@@ -597,7 +597,8 @@
       console.log({ input });
       const { original, keepLength } = input;
       this.capitalizedText = original.toUpperCase().substring(0, keepLength);
-      this.dispatchEvent(new CustomEvent("outputs", { detail: this.capitalizedText }));
+      console.log(`Capitalized result: ${this.capitalizedText}`);
+      this.dispatchEvent(new CustomEvent("outputs", { detail: { result: this.capitalizedText } }));
     }
   };
   __publicField(TextCapitalizer, "properties", {

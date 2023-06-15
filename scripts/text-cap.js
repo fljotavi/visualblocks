@@ -597,9 +597,8 @@
       `;
         }
         runWithInputs(input) {
-            console.log("runWithInputs running...");
-            this.capitalizedText = input.toUpperCase();
-            this.dispatchEvent(new CustomEvent("outputs", { detail: this.capitalizedText }));
+            console.log("runWithInputs running...", input);
+            this.dispatchEvent(new CustomEvent("outputs", { detail: "CAPPED" }));
         }
     };
     __publicField(TextCapitalizer, "properties", {

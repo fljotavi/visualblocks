@@ -597,7 +597,7 @@
       const bwImageCanvas = this.shadowRoot.getElementById("bw-image");
       console.log({ sourceCanvas, bwImageCanvas });
       bwImageCanvas.getContext("2d").drawImage(sourceCanvas, 0, 0, 90, 90);
-      this.canvasId = resourceService.put(bwImageCanvas.nativeElement);
+      this.canvasId = resourceService.put(bwImageCanvas);
       this.dispatchEvent(new CustomEvent("outputs", { detail: { result: { canvasId: this.canvasId } } }));
     }
   };

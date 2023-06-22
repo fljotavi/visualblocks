@@ -590,7 +590,7 @@
     }
     runWithInputs(input) {
       console.log("runWithInputs running...");
-      console.log({ input });
+      console.log({ input, window });
       const { resourceService } = window.customNode;
       const { original } = input;
       const sourceCanvas = resourceService.get(original.canvasId);

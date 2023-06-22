@@ -598,7 +598,7 @@
       console.log({ sourceCanvas, bwImageCanvas });
 
       // B&W it
-      const imageDataA = sourceCanvas.getImageData(0, 0, sourceCanvas.width, sourceCanvas.height);
+      const imageDataA = sourceCanvas.getContext("2d").getImageData(0, 0, sourceCanvas.width, sourceCanvas.height);
       for (let i = 0; i < imageDataA.data.length; i += 4) {
         const r = imageDataA.data[i];
         const g = imageDataA.data[i + 1];

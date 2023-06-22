@@ -596,8 +596,23 @@
       const sourceCanvas = resourceService.get(original.canvasId);
       const bwImageCanvas = this.shadowRoot.getElementById("bw-image");
       console.log({ sourceCanvas, bwImageCanvas });
-      bwImageCanvas.getContext("2d").drawImage(sourceCanvas, 0, 0, 90, 90);
-      this.canvasId = resourceService.put(bwImageCanvas);
+
+      // B&W it
+      const imageDataA = sourceCanvas.getImageData(0, 0, sourceCanvas.width, sourceCanvas.height);
+      for (let i = 0; i < imageDataA.data.length; i += 4) {
+        const r = imageDataA.data[i];
+        const g = imageDataA.data[i + 1];
+        const b = imageDataA.data[i + 2];
+        const grey = Math.floor((r + g + b) / 3); // Simple average
+      
+        // Set the greyscaled value to each channel (red, green, blue)
+        imageDataA.data[i] = grey;
+        imageDataA.data[i + 1] = grey;
+        imageDataA.data[i + 2] = grey;
+      }
+      
+      bwImageCanvas.getContext("2d").putImageData(imageDataA, 0, 0);
+      this.canvasId = resourceService.put(bwImageCanvas.nativeElement);
       this.dispatchEvent(new CustomEvent("outputs", { detail: { result: { canvasId: this.canvasId } } }));
     }
   };

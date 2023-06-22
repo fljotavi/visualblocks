@@ -612,7 +612,7 @@
       }
       
       bwImageCanvas.getContext("2d").putImageData(imageDataA, 0, 0);
-      this.canvasId = resourceService.put(bwImageCanvas.nativeElement);
+      this.canvasId = resourceService.put(bwImageCanvas);
       this.dispatchEvent(new CustomEvent("outputs", { detail: { result: { canvasId: this.canvasId } } }));
     }
   };

@@ -594,7 +594,7 @@
       const { resourceService } = window.customNode;
       const { original } = input;
       const sourceCanvas = resourceService.get(original.canvasId);
-      const bwImageCanvas = document.getElementById("bw-image");
+      const bwImageCanvas = this.shadowRoot.getElementById("bw-image");
       console.log({ sourceCanvas, bwImageCanvas });
       bwImageCanvas.getContext("2d").drawImage(sourceCanvas, 0, 0, 90, 90);
       this.canvasId = resourceService.put(bwImageCanvas.nativeElement);

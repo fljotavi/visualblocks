@@ -589,34 +589,46 @@
     `;
     }
     runWithInputs(input) {
-      console.log("runWithInputs running...");
-      console.log({ input, window });
       const { resourceService } = window.customNode;
       const { original } = input;
       const sourceCanvas = resourceService.get(original.canvasId);
       const bwImageCanvas = this.shadowRoot.getElementById("bw-image");
-      console.log({ sourceCanvas, bwImageCanvas });
-
-      // B&W it
       const imageDataA = sourceCanvas.getContext("2d").getImageData(0, 0, sourceCanvas.width, sourceCanvas.height);
-      for (let i = 0; i < imageDataA.data.length; i += 4) {
-        const r = imageDataA.data[i];
-        const g = imageDataA.data[i + 1];
-        const b = imageDataA.data[i + 2];
-        const grey = Math.floor((r + g + b) / 3); // Simple average
-      
-        // Set the greyscaled value to each channel (red, green, blue)
-        imageDataA.data[i] = grey;
-        imageDataA.data[i + 1] = grey;
-        imageDataA.data[i + 2] = grey;
+      for (let i3 = 0; i3 < imageDataA.data.length; i3 += 4) {
+        const r4 = imageDataA.data[i3];
+        const g2 = imageDataA.data[i3 + 1];
+        const b2 = imageDataA.data[i3 + 2];
+        const grey = Math.floor((r4 + g2 + b2) / 3);
+        imageDataA.data[i3] = grey;
+        imageDataA.data[i3 + 1] = grey;
+        imageDataA.data[i3 + 2] = grey;
       }
-      
       bwImageCanvas.getContext("2d").putImageData(imageDataA, 0, 0);
       this.canvasId = resourceService.put(bwImageCanvas);
       this.dispatchEvent(new CustomEvent("outputs", { detail: { result: { canvasId: this.canvasId } } }));
     }
   };
   customElements.define("bw-it", Bwit);
+  window.customNode.registerNodeSpec({
+    "id": "bwit",
+    "runnerId": "bw-it",
+    "name": "Bwit",
+    "description": "B&W it!",
+    "category": "model",
+    "propertySpecs": [],
+    "inputSpecs": [
+      {
+        "name": "original",
+        "type": "image"
+      }
+    ],
+    "outputSpecs": [
+      {
+        "name": "result",
+        "type": "image"
+      }
+    ]
+  });
 })();
 /**
  * @license

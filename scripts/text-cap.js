@@ -1,11 +1,4 @@
 (() => {
-  var __defProp = Object.defineProperty;
-  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-  var __publicField = (obj, key, value) => {
-    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-    return value;
-  };
-
   // node_modules/@lit/reactive-element/css-tag.js
   var t = window;
   var e = t.ShadowRoot && (t.ShadyCSS === void 0 || t.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype;
@@ -588,23 +581,46 @@
       this.capitalizedText = "";
     }
     render() {
-      return x`
-      <h3>TextCap Component Title</h3>
-    `;
     }
     runWithInputs(input) {
-      console.log("runWithInputs running...");
-      console.log({ input });
       const { original, keepLength } = input;
       this.capitalizedText = original.toUpperCase().substring(0, keepLength);
-      console.log(`Capitalized result: ${this.capitalizedText}`);
       this.dispatchEvent(new CustomEvent("outputs", { detail: { result: this.capitalizedText } }));
     }
   };
-  __publicField(TextCapitalizer, "properties", {
-    capitalizedText: { type: String }
-  });
   customElements.define("text-capitalizer", TextCapitalizer);
+  window.customNode.registerNodeSpec({
+    "id": "text_cap",
+    "runnerId": "text-capitalizer",
+    "name": "Text Capitalizer",
+    "description": "Capitalize it!",
+    "category": "model",
+    "propertySpecs": [
+      {
+        "name": "keepLength",
+        "type": "number",
+        "defaultValue": 5,
+        "editorSpec": {
+          "type": "number",
+          "min": 0,
+          "max": 20,
+          "fireEventOnMouseUp": true
+        }
+      }
+    ],
+    "inputSpecs": [
+      {
+        "name": "original",
+        "type": "string"
+      }
+    ],
+    "outputSpecs": [
+      {
+        "name": "result",
+        "type": "string"
+      }
+    ]
+  });
 })();
 /**
  * @license
